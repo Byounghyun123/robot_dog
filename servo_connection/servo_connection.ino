@@ -5,14 +5,14 @@ Servo frontLeftHip, frontLeftKnee;
 Servo rearRightHip, rearRightKnee;
 Servo rearLeftHip, rearLeftKnee;
 
-#define FR_HIP_PIN 16
-#define FR_KNEE_PIN 17
-#define FL_HIP_PIN 18
-#define FL_KNEE_PIN 19
-#define RR_HIP_PIN 21
-#define RR_KNEE_PIN 22
-#define RL_HIP_PIN 23
-#define RL_KNEE_PIN 25
+#define FR_HIP_PIN 14 //first green wire
+#define FR_KNEE_PIN 13 //black wire
+#define FL_HIP_PIN 26 //orange wire
+#define FL_KNEE_PIN 25 //second green wire
+#define RR_HIP_PIN 27 //first yellow wire
+#define RR_KNEE_PIN 12 //brown wire
+#define RL_HIP_PIN 33 //second yellow wire
+#define RL_KNEE_PIN 32 //third yellow wire
 
 void setup() {
     Serial.begin(115200);
