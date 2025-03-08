@@ -59,14 +59,15 @@ Servo frontLeftHip, frontLeftKnee;
 Servo rearRightHip, rearRightKnee;
 Servo rearLeftHip, rearLeftKnee;
 
-#define FR_HIP_PIN 14
-#define FR_KNEE_PIN 13
-#define FL_HIP_PIN 26
-#define FL_KNEE_PIN 25
-#define RR_HIP_PIN 27
-#define RR_KNEE_PIN 12
-#define RL_HIP_PIN 33
-#define RL_KNEE_PIN 32
+// Define the GPIO pins for the servos.
+#define FR_HIP_PIN 14   // first green wire from front
+#define FR_KNEE_PIN 13  // black wire
+#define FL_HIP_PIN 26   // orange wire
+#define FL_KNEE_PIN 25  // second green wire
+#define RR_HIP_PIN 27   // first yellow wire
+#define RR_KNEE_PIN 12  // brown wire
+#define RL_HIP_PIN 33   // second yellow wire
+#define RL_KNEE_PIN 32  // third yellow wire
 
 void setup() {
   Serial.begin(115200);
@@ -127,4 +128,3 @@ void loop() {
 
   delay(1000);
 }
-
