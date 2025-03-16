@@ -60,14 +60,14 @@ Servo rearRightHip, rearRightKnee;
 Servo rearLeftHip, rearLeftKnee;
 
 // Define the GPIO pins for the servos.
-#define FR_HIP_PIN 14   // first green wire from front
-#define FR_KNEE_PIN 13  // black wire
-#define FL_HIP_PIN 26   // orange wire
-#define FL_KNEE_PIN 25  // second green wire
-#define RR_HIP_PIN 27   // first yellow wire
-#define RR_KNEE_PIN 12  // brown wire
-#define RL_HIP_PIN 33   // second yellow wire
-#define RL_KNEE_PIN 32  // third yellow wire
+#define FR_HIP_PIN 33   // first green wire from front
+#define FR_KNEE_PIN 32  // black wire
+#define FL_HIP_PIN 27   // orange wire
+#define FL_KNEE_PIN 14  // second green wire
+#define RR_HIP_PIN 25   // first yellow wire
+#define RR_KNEE_PIN 26  // brown wire
+#define RL_HIP_PIN 12   // second yellow wire
+#define RL_KNEE_PIN 13  // third yellow wire
 
 void setup() {
   Serial.begin(115200);
@@ -81,50 +81,63 @@ void setup() {
   rearRightKnee.attach(RR_KNEE_PIN);
   rearLeftHip.attach(RL_HIP_PIN);
   rearLeftKnee.attach(RL_KNEE_PIN);
+
+  // Knees Move
+  frontRightKnee.write(85);
+  frontLeftKnee.write(100);
+  rearRightKnee.write(85);
+  rearLeftKnee.write(100);
+  // Hips Move
+  frontRightHip.write(85);
+  frontLeftHip.write(100);
+  rearRightHip.write(85);
+  rearLeftHip.write(100);
+
+  delay(200);
+
+  // Knees Stop Move
+  frontRightKnee.write(90);
+  frontLeftKnee.write(90);
+  rearRightKnee.write(90);
+  rearLeftKnee.write(90);
+  // Hips Stop Move
+  frontRightHip.write(90);
+  frontLeftHip.write(90);
+  rearRightHip.write(90);
+  rearLeftHip.write(90);
 }
 
 void loop() {
-  // Example leg positions (X, Y, Z) for the 4 legs.
-  float leg_positions[4][3] = {
-    { 0.1, -0.05, -0.15 }, // Front Right
-    { 0.1,  0.05, -0.15 }, // Front Left
-    { -0.1, -0.05, -0.15 }, // Rear Right
-    { -0.1,  0.05, -0.15 }  // Rear Left
-  };
+  // // Example leg positions (X, Y, Z) for the 4 legs.
+  // float leg_positions[4][3] = {
+  //   { 0.1, -0.05, -0.15 }, // Front Right
+  //   { 0.1,  0.05, -0.15 }, // Front Left
+  //   { -0.1, -0.05, -0.15 }, // Rear Right
+  //   { -0.1,  0.05, -0.15 }  // Rear Left
+  // };
 
-  float angles[12];  // Array to hold the computed IK joint angles.
-  ik.inverseKinematics(leg_positions, 0, 0, 0, 0, 0, 0, angles);
+  // float angles[12];  // Array to hold the computed IK joint angles.
+  // ik.inverseKinematics(leg_positions, 0, 0, 0, 0, 0, 0, angles);
 
-  // Print the calculated joint angles (in radians) to the Serial Monitor.
-  Serial.println("Joint Angles (Radians):");
-  for (int i = 0; i < 12; i++) {
-    Serial.print("Angle ");
-    Serial.print(i + 1);
-    Serial.print(": ");
-    Serial.println(angles[i], 4);
-  }
+  // // Print the calculated joint angles (in radians) to the Serial Monitor.
+  // Serial.println("Joint Angles (Radians):");
+  // for (int i = 0; i < 12; i++) {
+  //   Serial.print("Angle ");
+  //   Serial.print(i + 1);
+  //   Serial.print(": ");
+  //   Serial.println(angles[i], 4);
+  // }
 
-  // Convert selected IK angles from radians to degrees for servo control.
-  // We assume the hip and knee servos for each leg use the first two angles of each leg's set:
-  // Front Right: indices 0 and 1; Front Left: indices 3 and 4;
-  // Rear Right: indices 6 and 7; Rear Left: indices 9 and 10.
-  int servoAngles[12];
-  for (int i = 0; i < 12; i++) {
-    servoAngles[i] = constrain((angles[i] * 180.0 / PI) + 90, 0, 180);
-  }
+  // // Convert selected IK angles from radians to degrees for servo control.
+  // // We assume the hip and knee servos for each leg use the first two angles of each leg's set:
+  // // Front Right: indices 0 and 1; Front Left: indices 3 and 4;
+  // // Rear Right: indices 6 and 7; Rear Left: indices 9 and 10.
+  // int servoAngles[12];
+  // for (int i = 0; i < 12; i++) {
+  //   servoAngles[i] = constrain((angles[i] * 180.0 / PI) + 90, 0, 180);
+  // }
 
-  // Update servos with the calculated positions.
-  frontRightHip.write(servoAngles[0]);
-  frontRightKnee.write(servoAngles[1]);
+  // // Update servos with the calculated positions.
 
-  frontLeftHip.write(servoAngles[3]);
-  frontLeftKnee.write(servoAngles[4]);
-
-  rearRightHip.write(servoAngles[6]);
-  rearRightKnee.write(servoAngles[7]);
-
-  rearLeftHip.write(servoAngles[9]);
-  rearLeftKnee.write(servoAngles[10]);
-
-  delay(1000);
+  
 }
